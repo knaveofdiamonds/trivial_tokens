@@ -1,0 +1,34 @@
+# A random 160 bit token, value represented as 31 alphanumeric characters.
+#
+# Has an optional <tt>scope</tt> field, that application logic may use.
+#
+# To generate a random token, just use Token.create!
+class Token < ActiveRecord::Base
+  # Make sure the token has a value on creation. 
+  before_create :assign_value
+  
+  # validation
+  validates_presence_of :<%= singular_name %>_id
+
+  # Model identified by this token
+  belongs_to :<%= singular_name %>
+
+  def to_s
+    self.value
+  end
+
+  private
+
+  # Generate a "random" SHA-1 key. Replace this with a better randomisation
+  # method if necessary, sourcing data from /dev/random for example.
+  def self.random_sha1
+    randoms = (1..10).map { rand }
+    Digest::SHA1.hexdigest "#{randoms * "-"}"
+  end
+
+  # Assign a random value to this token. Values use the full alphanumeric 
+  # range, rather than standard base-16, so as to be shorter.
+  def assign_value
+    self.value = Token.random_sha1.to_i(16).to_s(36)
+  end
+end

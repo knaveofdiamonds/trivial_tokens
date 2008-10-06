@@ -1,0 +1,16 @@
+class CreateTokens < ActiveRecord::Migration
+  def self.up
+    create_table :tokens do |t|
+      t.integer   :<%= singular_name %>_id, :null => false
+      t.string    :value,   :null => false, :limit => 31
+      t.string    :scope,   :null => false, :default => ''
+      t.timestamp :created_at
+    end
+
+    add_index :tokens, :value, :unique => true
+  end
+
+  def self.down
+    drop_table :tokens
+  end
+end
