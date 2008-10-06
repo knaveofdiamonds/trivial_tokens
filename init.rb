@@ -1,2 +1,2 @@
 # Include hook code here
-ActionController::Base.send(:include, KnaveOfDimonds::TrivialTokens)
+ActionController::Base.send(:include, KnaveOfDiamonds::TrivialTokens)
