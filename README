@@ -1,13 +1,29 @@
 TrivialTokens
 =============
 
-Introduction goes here.
-
+Support url-based authentication tokens for passwordless login. These can
+be used in place of / in addition to a traditional name & password registration
+process (depending on your application's needs).
 
 Example
 =======
 
-Example goes here.
+Generate the token model/migration, which will be linked to the model you want
+to identify with the token (i.e. a User model):
 
+script/generate trivial_tokens user
+
+Any url that has a token=fulltokenstringexample1234 parameter will have the
+token available to it through YourController#provided_token
+
+Is this Secure?
+===============
+
+If you use this as a stand-alone authentication mechanism and expose the token
+over an unencypted channel, not particularly.
+
+There may be situations where this doesn't bother you though, for example
+guest accounts, "forgot password" links, trivial applications or local network
+environments where you trust everyone.
 
 Copyright (c) 2008 Roland Swingler, released under the MIT license
