@@ -28,6 +28,7 @@ class TrivialTokensGenerator < Rails::Generator::NamedBase
     m.template "user.erb", "app/models/#{singular_name}.rb"
     m.template "users_controller.erb", "app/controllers/#{plural_name}_controller.rb"
     m.template "new_user_form.erb", "app/views/#{plural_name}/_new_#{singular_name}.html.erb"
+    m.template "holding_new.erb", "app/views/#{plural_name}/new.html.erb"
   end
 
   def copy_migration_templates(m)

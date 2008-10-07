@@ -1,15 +1,15 @@
-<div id="<% singular_name %>Signup" <%% unless new_<% singular_name %>.errors.empty? %>class="withErrors"<%% end %>>
+<div id="<%= singular_name %>Signup" <%% unless new_<%= singular_name %>.errors.empty? %>class="withErrors"<%% end %>>
 
-  <%% unless new_<% singular_name %>.errors.empty? %>
+  <%% unless new_<%= singular_name %>.errors.empty? %>
     <div class="errorMessages">
       <h1>Sorry, there was a problem signing up</h1>
 
-      <%% if new_<% singular_name %>.errors.on_base == :formating %>
+      <%% if new_<%= singular_name %>.errors.on_base == :formating %>
 
         <p>I can't understand this email address; are you sure it follows a format
            like <samp>name@example.com</samp>?</p>
 
-      <%% elsif new_<% singular_name %>.errors.on_base == :uniqueness %>
+      <%% elsif new_<%= singular_name %>.errors.on_base == :uniqueness %>
 
         <p>This email address is already being used by somebody (maybe you).</p>
         <p>If you've signed up before, you can sign in by following the link
@@ -19,7 +19,7 @@
     </div>
   <%% end %>
 
-  <%% form_for new_<% singular_name %> do |f| %>
+  <%% form_for new_<%= singular_name %> do |f| %>
     <%%= label_tag "email" %>
     <%%= text_field_tag "email" %>
     <%%= submit_tag "Sign up" %>
