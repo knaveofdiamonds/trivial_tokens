@@ -1,0 +1,21 @@
+class UsersController < ApplicationController
+
+  # Screen to create a new <%= singular_name %>.
+  def new
+    @<%= singular_name %> = <%= class_name %>.new
+    @<%= singular_name %>.errors.add_to_base flash[:signup_problem] if flash[:signup_problem]
+  end
+
+  # Create a new user
+  def create
+    @<%= singular_name %> = <%= class_name %>.new :email => params[:email]
+
+    if @<%= singular_name %>.save
+      self.current_<%= singular_name %> = @<%= singular_name %>
+      redirect_to "/"
+    else
+      flash[:signup_problem] = @<%= singular_name %>.errors.on_base
+      redirect_to :back
+    end
+  end
+end
