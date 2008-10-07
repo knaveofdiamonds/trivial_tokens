@@ -1,0 +1,17 @@
+module TrivialLogin
+  def self.included(base)
+    base.before_filter :get_current_<%= singular_name %>
+    base.send :attr_accessor, :current_<%= singular_name %>
+  end
+  
+  protected
+
+  def get_current_<%= singular_name %>
+    if provided_token
+      @current_<%= singular_name %> = provided_token.<%= singular_name %>
+      session[:<%= singular_name %>_id] = @current_<%= singular_name %>.id
+    elsif session[:<%= singular_name %>_id]
+      @current_<%= singular_name %> = <%= class_name %>.find(session[:<%= singular_name %>_id])
+    end
+  end
+end

@@ -1,0 +1,22 @@
+class <%= class_name %> < ActiveRecord::Base
+  before_create :generate_token
+
+  has_many :tokens, :dependent => :delete_all
+
+  # This is slightly unusual, we want errors to be on the base <%= class_name %> rather than the
+  # email field. The error messages will be formatted and involved, so we just store
+  # a symbol to refer to in the view
+  def validate_on_create
+    if self.email.blank? || self.email !~ /\A(?:[^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+      errors.add_to_base :formating
+    elsif self.class.count(:conditions => {:email => self.email}) > 0
+      errors.add_to_base :uniqueness
+    end
+  end
+
+  private
+
+  def generate_token
+    self.tokens.build
+  end
+end
